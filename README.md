@@ -8,9 +8,13 @@ What this project does (FLOW)
 This is a Node.js microservice that handles Zendesk webhook-style POST requests to generate a summarization of tickets using an AI API service. The service workflow is:
 
 1.(Optional) Request verification — It can verify incoming requests using HMAC-SHA256 and a shared secret (ZENDESK_SECRET); currently, this is disabled for local testing. 
+
 2.Payload validation — Ensures the JSON body contains the required fields: id, title, and description. 
+
 3.Summary generation — Calls summarizeContent(title, description) in functions.js to generate a summary. Currently, this uses a mock API (jsonplaceholder.typicode.com) to return random latin text from this API.
+
 4.Add internal note — Calls addInternalNoteToTicket(ticketId, summary) to add the summary as a private comment on the Zendesk ticket using Zendesk API.
+
 5.Response handling — Returns a 200 response with the summary if successful, or an error code if validation or API calls fail.
 
 
